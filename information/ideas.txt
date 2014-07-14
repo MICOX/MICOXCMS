@@ -1,0 +1,9 @@
+
+
+The system should be able to run in PHP as well as in HHVM.
+
+The server should be able to sin as a single server or as a multi host
+ server.
+
+The system should be able to be upgraded with a diff.
+

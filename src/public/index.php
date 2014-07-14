@@ -1,2 +1,3 @@
 <?php
-echo "This is MICOXCMS";
+include('../system/system.php');
+\MICOXCMS\HTML\TApplication::Run();
