@@ -1,5 +1,6 @@
 <?php
 namespace MICOXCMS {
+  error_reporting(E_ALL);
   define('DIR_SEP', DIRECTORY_SEPARATOR);
   define('DIRECTORY_THIS', '.'.DIR_SEP);
   define('DIRECTORY_UP', '..'.DIR_SEP);
@@ -54,10 +55,11 @@ namespace MICOXCMS {
   }
   
   class System {
-    protected static $config = null;
+    protected static $initDone = false;
     
     public static function Init() {
-      if(static::$config === null) {
+      if(static::$initDone === false) {
+        static::$initDone = true;
         define('MICOXCMS_PATH_SYSTEM', __DIR__.DIR_SEP);
         if(!defined('MICOXCMS_PATH_CONFIG')) {
           if(is_dir(__DIR__.DIRECTORY_WRAPPED_UP.'configuration')) {
@@ -75,12 +77,65 @@ namespace MICOXCMS {
         } else {
           $json = file_get_contents(MICOXCMS_PATH_CONFIG.'system.json');
         }
-        static::$config = json_decode($json, true);
-        if(!is_array(static::$config)) {
+        $config = json_decode($json, true);
+        if(!is_array($config)) {
           die('No valid config');
         }
+        SystemConfig::SetArray($config, true);
       }
     }
+  }
+  
+  class SystemConfig {
+    protected static $config = array();
+    protected static $configFuse = array();
+    
+    public static function Get($name) {
+      if(isset(static::$configFuse[$name])) {
+        return static::$configFuse[$name];
+      } elseif(isset(static::$config[$name])) {
+        return static::$config[$name];
+      }
+      return null;
+    }
+    
+    public static function Set($name, $value, $fuseOut = false) {
+      if($fuseOut === true) {
+        if(isset(static::$configFuse[$name])) {
+          return static::$configFuse[$name];
+        }
+        static::$configFuse[$name] = $value;
+      } else {
+        static::$config[$name] = $value;
+      }
+      return $value;
+    }
+    
+    public static function SetArray($array, $fuseOut = false, $baseKey = false) {
+      if(\is_array($array)) {
+        foreach($array as $key => $value) {
+          if($baseKey === false) {
+            static::SetArray($value, $fuseOut, $key);
+          } else {
+            static::SetArray($value, $fuseOut, $baseKey.'.'.$key);
+          }
+        }
+      } elseif($baseKey !== false) {
+        static::Set($baseKey, $array, $fuseOut);
+      }
+    }
+    
+    public static function GetConfig() {
+      $values = array();
+      foreach(static::$config as $key => $value) {
+        $values[$key] = $value;
+      }
+      foreach(static::$configFuse as $key => $value) {
+        $values[$key] = $value;
+      }
+      return $values;
+    }
+    
   }
   
   spl_autoload_register('\MICOXCMS\Autoloader::Load');

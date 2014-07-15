@@ -1,3 +1,15 @@
 {
-  "serverType": "single"
+  "serverType": "single",
+  "database": {
+    "engine": "PDO",
+    "type": "mysql",
+    "host": "localhost",
+    "username": "cmsuser",
+    "password": ""
+  },
+  "cache": {
+    "engine": "MemCache",
+    "host": "localhost",
+    "port": 11211
+  }
 }

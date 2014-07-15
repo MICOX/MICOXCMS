@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TComponent extends \MICOXCMS\Lib\TObject {
+  class TCache extends \MICOXCMS\Lib\TComponent {
     
     public function __construct() {
       parent::__construct();

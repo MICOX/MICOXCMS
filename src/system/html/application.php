@@ -1,20 +1,19 @@
 <?php
 namespace MICOXCMS\HTML {
+  
   class TApplication extends \MICOXCMS\Lib\TApplication {
-    public static function Init() {
-      parent::Init();
-      echo "HTML Init";
+ 
+    protected function _Init() {
+      $db = \MICOXCMS\Lib\TDatabase::Instance()->Connect();
+//      echo serialize($db->Execute('SELECT * FROM nisse'));
     }
-    
-    public static function Run() {
-      parent::Run();
-      echo "HTML Run";
+
+    protected function _Run() {
     }
-    
-    public static function Done() {
-      parent::Done();
-      echo "HTML Done";
+
+    protected function _Done() {
     }
-    
+
   }
+  
 }

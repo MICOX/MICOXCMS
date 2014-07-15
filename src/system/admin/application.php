@@ -1,20 +1,14 @@
 <?php
 namespace MICOXCMS\Admin {
   class TApplication extends \MICOXCMS\Lib\TApplication {
-    public static function Init() {
-      parent::Init();
-      echo "Admin Init";
+    protected function _Init() {
     }
-    
-    public static function Run() {
-      parent::Run();
-      echo "Admin Run";
+
+    protected function _Run() {
     }
-    
-    public static function Done() {
-      parent::Done();
-      echo "Admin Done";
+
+    protected function _Done() {
     }
-    
+
   }
 }
