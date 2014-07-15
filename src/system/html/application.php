@@ -4,8 +4,7 @@ namespace MICOXCMS\HTML {
   class TApplication extends \MICOXCMS\Lib\TApplication {
  
     protected function _Init() {
-      $db = \MICOXCMS\Lib\TDatabase::Instance()->Connect();
-//      echo serialize($db->Execute('SELECT * FROM nisse'));
+      echo "Welcome to HTML";
     }
 
     protected function _Run() {

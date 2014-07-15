@@ -82,6 +82,14 @@ namespace MICOXCMS {
           die('No valid config');
         }
         SystemConfig::SetArray($config, true);
+        
+        $uri = $_SERVER['REQUEST_URI'];
+        $script = $_SERVER['SCRIPT_NAME'];
+        $base = rtrim(dirname($script), DIR_SEP);
+        $request = substr($uri, strlen($base));
+        SystemConfig::Set('request.realuri', $uri);
+        SystemConfig::Set('request.basepath', $base);
+        SystemConfig::Set('request.uri', $request);
       }
     }
   }

@@ -1,6 +1,8 @@
 <?php
 namespace MICOXCMS\Admin {
+  
   class TApplication extends \MICOXCMS\Lib\TApplication {
+  
     protected function _Init() {
     }
 
@@ -11,4 +13,5 @@ namespace MICOXCMS\Admin {
     }
 
   }
+  
 }

@@ -18,7 +18,8 @@ namespace MICOXCMS\Lib {
     }
     
     public function Init() {
-      echo "INIT";
+      echo "<pre>";
+      print_r(\MICOXCMS\SystemConfig::GetConfig());
       switch($this->state) {
         case static::UNINITIALIZED:
           break;
@@ -36,12 +37,12 @@ namespace MICOXCMS\Lib {
           break;
       }
       $this->state = static::INIT;
+      echo "Init";
       $this->_Init();
       return $this;
     }
     
     public function Run() {
-      echo "RUN";
       switch($this->state) {
         case static::UNINITIALIZED:
           $this->state = static::INIT;
@@ -60,12 +61,12 @@ namespace MICOXCMS\Lib {
           break;
       }
       $this->state = static::RUN;
+      echo "Run";
       $this->_Run();
       return $this;
     }
     
     public function Done() {
-      echo "Done";
       switch($this->state) {
         case static::UNINITIALIZED:
           break;
@@ -81,6 +82,7 @@ namespace MICOXCMS\Lib {
           break;
       }
       $this->state = static::DONE;
+      echo "Done";
       $this->_Done();
       return $this;
     }
