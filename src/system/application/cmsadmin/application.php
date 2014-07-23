@@ -1,10 +1,11 @@
 <?php
-namespace MICOXCMS\Admin {
+namespace MICOXCMS\Application\CMSAdmin {
   
   class TApplication extends \MICOXCMS\Lib\TApplication {
   
     protected function _Init() {
-      $user = \MICOXCMS\Lib\TSystemUser::Instance();
+      $user = \MICOXCMS\Lib\TUser::Instance();
+      echo "Welcome to CMSAdmin";
     }
 
     protected function _Run() {

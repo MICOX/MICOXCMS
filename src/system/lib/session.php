@@ -1,19 +1,25 @@
 <?php
 namespace MICOXCMS\Lib {
   
-  class TSession extends \MICOXCMS\Lib\TSingletonComponent implements \SessionHandlerInterface {
+  class TSession extends \MICOXCMS\Lib\TSingletonComponent implements \SessionHandlerInterface, \MICOXCMS\Interfaces\ISession {
     protected static $initDone = false;
     protected static $isStarted = false;
+    protected $shutdownList;
+    protected $engine;
     
     public function __construct() {
       parent::__construct();
-      $type = \MICOXCMS\SystemConfig::Get('session.type');
-      $storage = \MICOXCMS\SystemConfig::Get('session.storage');
-      $activelevel = \MICOXCMS\SystemConfig::Get('session.activelevel');
-      echo "Storage: $storage, Type: $type, Interact: $interact".PHP_EOL;
+      $this->shutdownList = array();
+      $engine = '\\MICOXCMS\\Lib\\Session\\T'.\MICOXCMS\SystemConfig::Get('session.engine');
+      $this->engine = new $engine();
     }
     
     public function __destruct() {
+      if(count($this->shutdownList) > 0) {
+        foreach($this->shutdownList as $object) {
+          $object->SaveToSession(true);
+        }
+      }
       parent::__destruct();
     }
 
@@ -48,6 +54,44 @@ namespace MICOXCMS\Lib {
       return null;
     }
     
+    public function Set($name, $value) {
+      $_SESSION[$name] = $value;
+      return $this;
+    }
+    
+    public function Remove($name) {
+      if(isset($_SESSION[$name])) {
+        unset($_SESSION[$name]);
+      }
+      return null;
+    }
+    
+    public function ShutdownSession() {
+      if(count($this->shutdownList) > 0) {
+        foreach($this->shutdownList as $object) {
+          $object->SaveToSession(true);
+        }
+        $this->shutdownList = array();
+      }
+    }
+    
+    public function RegisterShutdown($object) {
+      $this->shutdownList[] = $object;
+    }
+    
+    public function UnregisterShutdown($object) {
+      $kill = false;
+      foreach($this->shutdownList as $idx => $obj) {
+        if($obj === $object) {
+          $kill = $idx;
+          break;
+        }
+      }
+      if($kill !== false) {
+        unset($this->shutdownList[$kill]);
+      }
+    }
+    
     public function close() {
       
     }
@@ -61,16 +105,15 @@ namespace MICOXCMS\Lib {
     }
 
     public function open($save_path, $name) {
-      echo serialize($name);
-      echo serialize($save_path);
+      return $this->engine->Open($save_path, $name);
     }
 
     public function read($session_id) {
-      
+      return $this->engine->Read($session_id);
     }
 
     public function write($session_id, $session_data) {
-      
+      return $this->engine->Write($session_id, $session_data);
     }
 
   }

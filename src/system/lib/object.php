@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TObject {
+  class TObject implements \MICOXCMS\Interfaces\IObject {
     protected static $objectCounter = 0;
     protected static $objectAliveCounter = 0;
     protected $objectID;

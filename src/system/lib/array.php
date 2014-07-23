@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TArray extends \MICOXCMS\Lib\TObject implements \Iterator, \Countable, \Traversable {
+  class TArray extends \MICOXCMS\Lib\TObject implements \Iterator, \Countable, \Traversable, \MICOXCMS\Interfaces\IArray {
     protected $data;
     
     public function __construct() {

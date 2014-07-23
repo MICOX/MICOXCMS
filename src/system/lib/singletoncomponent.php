@@ -1,7 +1,7 @@
 <?php
 namespace MICOXCMS\Lib {
   
-  class TSingletonComponent extends \MICOXCMS\Lib\TComponent {
+  class TSingletonComponent extends \MICOXCMS\Lib\TComponent implements \MICOXCMS\Interfaces\ISingletonComponent {
     protected static $objectList = array();
     
     public function __construct() {

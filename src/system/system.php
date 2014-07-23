@@ -25,6 +25,17 @@ namespace MICOXCMS {
           } else {
             $filename = strtolower($className);
           }
+        } elseif($group == 'Interfaces') {
+          $filename = MICOXCMS_PATH_SYSTEM.'interfaces'.DIR_SEP;
+          if(count($parts) > 0) {
+            $filename .= strtolower(implode(DIR_SEP, $parts));
+            $filename .= DIR_SEP;
+          }
+          if($className{0} == 'I') {
+            $filename .= strtolower(substr($className, 1));
+          } else {
+            $filename = strtolower($className);
+          }
         } else {
           $filename = MICOXCMS_PATH_SYSTEM.strtolower($group).DIR_SEP;
           if(count($parts) > 0) {
@@ -59,6 +70,10 @@ namespace MICOXCMS {
     
     public static function Init() {
       if(static::$initDone === false) {
+        if(!defined('MICOXCMS_APP')) {
+          define('MICOXCMS_APP', 'CMS');
+        }
+        $appName = strtolower(MICOXCMS_APP);
         static::$initDone = true;
         define('MICOXCMS_PATH_SYSTEM', __DIR__.DIR_SEP);
         if(!defined('MICOXCMS_PATH_CONFIG')) {
@@ -68,14 +83,14 @@ namespace MICOXCMS {
             die('Whoooops!!!'.PHP_EOL.'Config path not defined');
           }
         }
-        if(!file_exists(MICOXCMS_PATH_CONFIG.'system.json')) {
-          if(file_exists(MICOXCMS_PATH_CONFIG.DIR_SEP.'system.json')) {
-            $json = file_get_contents(MICOXCMS_PATH_CONFIG.DIR_SEP.'system.json');
+        if(!file_exists(MICOXCMS_PATH_CONFIG.$appName.'.json')) {
+          if(file_exists(MICOXCMS_PATH_CONFIG.DIR_SEP.$appName.'.json')) {
+            $json = file_get_contents(MICOXCMS_PATH_CONFIG.DIR_SEP.$appName.'.json');
           } else {
             die('Configuration file not found');
           }
         } else {
-          $json = file_get_contents(MICOXCMS_PATH_CONFIG.'system.json');
+          $json = file_get_contents(MICOXCMS_PATH_CONFIG.$appName.'.json');
         }
         $config = json_decode($json, true);
         if(!is_array($config)) {
@@ -168,8 +183,8 @@ namespace MICOXCMS {
     
     public static function Instance($class) {
       if(is_callable($class.'::Instance')) {
-        $function = $class.'::Instance()';
-        return $function();
+        $function = $class.'::Instance';
+        return call_user_func($function);
       }
     }
     
@@ -177,4 +192,6 @@ namespace MICOXCMS {
   
   spl_autoload_register('\MICOXCMS\Autoloader::Load');
   \MICOXCMS\System::Init();
+  define('MICOXCMS_APPCLASS', '\\MICOXCMS\\Application\\'.MICOXCMS_APP.'\\TApplication');
+  define('MICOXCMS_ADMINCLASS', '\\MICOXCMS\\Application\\'.MICOXCMS_APP.'Admin\\TApplication');
 }

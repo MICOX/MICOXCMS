@@ -6,7 +6,8 @@
     "type": "mysql",
     "host": "localhost",
     "username": "cmsuser",
-    "password": ""
+    "password": "",
+    "table": "cms"
   },
   "cache": {
     "engine": "MemCache",
@@ -14,9 +15,7 @@
     "port": 11211
   },
   "session": {
-    "activelevel": "user",
-    "type": "cookie",
-    "cookieprefix": false,
-    "storage": "file"
+    "engine": "system",
+    "activelevel": "user"
   }
 }

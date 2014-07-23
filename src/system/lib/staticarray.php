@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TStaticArray extends \MICOXCMS\Lib\TStaticObject {
+  class TStaticArray extends \MICOXCMS\Lib\TStaticObject implements \MICOXCMS\Interfaces\IStaticArray {
     protected static $data = array();
     
     public static function Get($name) {

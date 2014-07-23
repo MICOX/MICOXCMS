@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  abstract class TApplication extends \MICOXCMS\Lib\TSingletonComponent {
+  abstract class TApplication extends \MICOXCMS\Lib\TSingletonComponent implements \MICOXCMS\Interfaces\IApplication {
     const UNINITIALIZED = 0;
     const INIT = 1;
     const RUN = 2;

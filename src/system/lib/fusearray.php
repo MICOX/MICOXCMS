@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TFuseArray extends \MICOXCMS\Lib\TArray {
+  class TFuseArray extends \MICOXCMS\Lib\TArray implements \MICOXCMS\Interfaces\IFuseArray {
     protected $dataFuse;
     
     public function __construct() {

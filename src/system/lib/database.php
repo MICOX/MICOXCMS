@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TDatabase extends \MICOXCMS\Lib\TSingletonComponent {
+  class TDatabase extends \MICOXCMS\Lib\TSingletonComponent implements \MICOXCMS\Interfaces\IDatabase {
     protected $reuse;
     protected $dbEngine;
     

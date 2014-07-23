@@ -1,3 +1,4 @@
 <?php
+define('MICOXCMS_APP', 'CMS');
 include('../system/system.php');
-\MICOXCMS\HTML\TApplication::Instance()->Init()->Run()->Done();
+\MICOXCMS\ObjectFactory::Instance(MICOXCMS_APPCLASS)->Init()->Run()->Done();

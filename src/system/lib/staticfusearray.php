@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TStaticFuseArray extends \MICOXCMS\Lib\TStaticArray {
+  class TStaticFuseArray extends \MICOXCMS\Lib\TStaticArray implements \MICOXCMS\Interfaces\IStaticFuseArray {
     protected static $dataFuse = array();
     
     public static function Get($name) {

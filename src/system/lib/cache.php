@@ -1,6 +1,6 @@
 <?php
 namespace MICOXCMS\Lib {
-  class TCache extends \MICOXCMS\Lib\TComponent {
+  class TCache extends \MICOXCMS\Lib\TComponent implements \MICOXCMS\Interfaces\ICache {
     
     public function __construct() {
       parent::__construct();

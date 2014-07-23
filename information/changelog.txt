@@ -1,5 +1,28 @@
 ###########################################################################
 # Date    2014-07-23
+# Version 0.0.0.7
+###########################################################################
+# Added interfaces. These will gradually be completed.
+# Added a new constant MICOXCMS_APP that must be defined before loading
+#  the system.
+# Changed the naming convention for applications. The administration class
+#  must use the same name as the main application but with "Admin" appended
+#  to the namespace. The administration for CMS will be called CMSAdmin.
+# Added two new constants MICOXCMS_APPCLASS and MICOX_ADMINCLASS which are
+#  defined by the system after System::Init(). These two new constants can
+#  be used as an argument to ObjectFactory::Instance to create the correct
+#  application.
+# Changed the naming convention for the configuration files. They should
+#  now correspont to the lower case of the constant MICOXCMS_APP with an
+#  .json extension.
+# Moved applications into a separate folder called application. This also
+#  affected the namespace which now includes Application.
+# Changed the name of the HTML and Admin applications. They are now called
+#  CMS and CMSAdmin.
+###########################################################################
+
+###########################################################################
+# Date    2014-07-23
 # Version 0.0.0.6
 ###########################################################################
 # Added lots of base functions.
