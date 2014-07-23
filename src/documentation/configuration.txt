@@ -1,0 +1,34 @@
+runmode
+  debug
+
+serverType
+  single
+
+database
+  engine
+    PDO
+  type
+    mysql
+  host
+    localhost
+  username
+    cmsuser
+  password
+
+cache
+  engine
+    MemCache
+  host
+    localhost
+  port
+    11211
+
+session
+  activelevel
+    user
+  type
+    cookie
+  cookieprefix
+    false
+  storage
+    file

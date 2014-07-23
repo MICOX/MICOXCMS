@@ -45,7 +45,7 @@ namespace DummyTest {
   class SystemConfig {
     protected static $config = array();
 
-    public static function Get($name) {
+    public function Get($name) {
       echo get_called_class().PHP_EOL;
       if(isset(static::$config[$name])) {
         return static::$config[$name];
@@ -53,11 +53,24 @@ namespace DummyTest {
       return null;
     }
 
-    public static function Set($name, $value) {
+    public function Set($name, $value) {
       static::$config[$name] = $value;
     }
   }
 
+  error_reporting(E_ALL);
+  ini_set('display_errors', true);
   SystemConfig::Set('xxx', 'yyy');
   \DummyTest\Lib\TDatabase::Init();
+  echo PHP_EOL;
 }
+
+/*
+ * Status: Solved
+ * Programmers mistake
+ * The functions on line 48 and 56 should be declared as static.
+ * PHP responds on line 49 with the calling objects class while HHVM
+ * responds with DummyTest\SystemConfig.
+ * It turns out that HHVM doesn't care about the missing static.
+ * But PHP doesn't return any warnings about missing static.
+ */

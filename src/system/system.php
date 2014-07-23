@@ -90,6 +90,13 @@ namespace MICOXCMS {
         SystemConfig::Set('request.realuri', $uri);
         SystemConfig::Set('request.basepath', $base);
         SystemConfig::Set('request.uri', $request);
+        if(SystemConfig::Get('runmode') == 'debug') {
+          error_reporting(E_ALL);
+          ini_set('display_errors', true);
+        } else {
+          error_reporting(0);
+          ini_set('display_errors', false);
+        }
       }
     }
   }
@@ -119,6 +126,17 @@ namespace MICOXCMS {
       return $value;
     }
     
+    public static function FuseOut($name) {
+      if(!isset(static::$configFuse[$name])) {
+        if(isset(static::$config[$name])) {
+          static::$configFuse[$name] = static::$config[$name];
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    
     public static function SetArray($array, $fuseOut = false, $baseKey = false) {
       if(\is_array($array)) {
         foreach($array as $key => $value) {
@@ -132,7 +150,7 @@ namespace MICOXCMS {
         static::Set($baseKey, $array, $fuseOut);
       }
     }
-    
+  
     public static function GetConfig() {
       $values = array();
       foreach(static::$config as $key => $value) {
@@ -142,6 +160,17 @@ namespace MICOXCMS {
         $values[$key] = $value;
       }
       return $values;
+    }
+    
+  }
+  
+  class ObjectFactory {
+    
+    public static function Instance($class) {
+      if(is_callable($class.'::Instance')) {
+        $function = $class.'::Instance()';
+        return $function();
+      }
     }
     
   }

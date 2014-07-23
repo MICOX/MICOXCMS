@@ -1,4 +1,5 @@
 {
+  "runmode": "debug",
   "serverType": "single",
   "database": {
     "engine": "PDO",
@@ -11,5 +12,11 @@
     "engine": "MemCache",
     "host": "localhost",
     "port": 11211
+  },
+  "session": {
+    "activelevel": "user",
+    "type": "cookie",
+    "cookieprefix": false,
+    "storage": "file"
   }
 }

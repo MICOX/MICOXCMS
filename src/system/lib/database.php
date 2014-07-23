@@ -23,10 +23,10 @@ namespace MICOXCMS\Lib {
       }
       $class = __NAMESPACE__.'\\Database\\T'.$this->dbEngine;
       if($reuse === true) {
-        $this->reuse = $class::CreateNew();
+        $this->reuse = $class::Instance();
         return $this->reuse;
       } else {
-        return $class::CreateNew();
+        return $class::Instance();
       }
     }
     

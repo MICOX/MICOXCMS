@@ -4,6 +4,7 @@ namespace MICOXCMS\HTML {
   class TApplication extends \MICOXCMS\Lib\TApplication {
  
     protected function _Init() {
+      $user = \MICOXCMS\Lib\TUser::Instance();
       echo "Welcome to HTML";
     }
 

@@ -20,7 +20,8 @@ namespace MICOXCMS\Lib {
     public static function Instance() {
       $class = get_called_class();
       if(!isset(static::$objectList[$class])) {
-        new $class();
+        parent::Instance();
+        // new $class();
       }
       return static::$objectList[$class];
     }

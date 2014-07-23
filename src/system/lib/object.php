@@ -27,7 +27,7 @@ namespace MICOXCMS\Lib {
       return $this->objectID;
     }
     
-    public static function CreateNew() {
+    public static function Instance() {
       $class = get_called_class();
       $args = func_get_args();
       switch(count($args)) {
