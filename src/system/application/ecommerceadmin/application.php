@@ -15,6 +15,10 @@ namespace MICOXCMS\Application\ECommerceAdmin {
     protected function _Done() {
     }
 
+    protected function _OutputBuffer($buffer) {
+      return $buffer;
+    }
+    
   }
   
 }

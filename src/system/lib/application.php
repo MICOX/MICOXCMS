@@ -23,7 +23,7 @@ namespace MICOXCMS\Lib {
     }
     
     public function OutputBuffer($buffer) {
-      $buffer .= '###';
+      $buffer = $this->_OutputBuffer($buffer);
       return $buffer;
     }
     
@@ -108,6 +108,7 @@ namespace MICOXCMS\Lib {
     protected abstract function _Init();    
     protected abstract function _Run();
     protected abstract function _Done();
+    protected abstract function _OutputBuffer($buffer);
     
   }
 }

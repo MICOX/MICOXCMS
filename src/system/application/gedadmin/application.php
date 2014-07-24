@@ -14,6 +14,10 @@ namespace MICOXCMS\Application\GEDAdmin {
     protected function _Done() {
     }
 
+    protected function _OutputBuffer($buffer) {
+      return $buffer;
+    }
+    
   }
   
 }
