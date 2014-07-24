@@ -1,0 +1,21 @@
+{
+  "runmode": "debug",
+  "serverType": "single",
+  "database": {
+    "engine": "PDO",
+    "type": "mysql",
+    "host": "localhost",
+    "username": "cmsuser",
+    "password": "",
+    "table": "training"
+  },
+  "cache": {
+    "engine": "MemCache",
+    "host": "localhost",
+    "port": 11211
+  },
+  "session": {
+    "engine": "system",
+    "activelevel": "user"
+  }
+}

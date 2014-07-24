@@ -7,14 +7,24 @@ namespace MICOXCMS\Lib {
     const DONE = 3;
     
     protected $state;
+    protected $contentType;
+    protected $charset;
+    protected $buffer;
     
     public function __construct() {
       parent::__construct();
       $this->state = TApplication::UNINITIALIZED;
+      $this->contentType = 'text/html';
+      $this->charset = 'utf-8';
     }
     
     public function __destruct() {
       parent::__destruct();
+    }
+    
+    public function OutputBuffer($buffer) {
+      $buffer .= '###';
+      return $buffer;
     }
     
     public function Init() {
@@ -38,7 +48,15 @@ namespace MICOXCMS\Lib {
       }
       $this->state = static::INIT;
       echo "Init";
+      $this->buffer = \MICOXCMS\SystemConfig::Get('output.buffer');
+      $this->buffer = ($this->buffer != false) || ($this->buffer === null);
       $this->_Init();
+      if($this->contentType !== false) {
+        header('Content-Type: '.$this->contentType.'; charset='.$this->charset);
+      }
+      if($this->buffer) {
+        ob_start(array($this, 'OutputBuffer'));
+      }
       return $this;
     }
     

@@ -102,9 +102,12 @@ namespace MICOXCMS {
         $script = $_SERVER['SCRIPT_NAME'];
         $base = rtrim(dirname($script), DIR_SEP);
         $request = substr($uri, strlen($base));
-        SystemConfig::Set('request.realuri', $uri);
-        SystemConfig::Set('request.basepath', $base);
-        SystemConfig::Set('request.uri', $request);
+        SystemConfig::Set('request.realuriraw', $uri);
+        SystemConfig::Set('request.realuri', urldecode($uri));
+        SystemConfig::Set('request.basepathraw', $base);
+        SystemConfig::Set('request.basepath', urldecode($base));
+        SystemConfig::Set('request.uriraw', $request);
+        SystemConfig::Set('request.uri', urldecode($request));
         if(SystemConfig::Get('runmode') == 'debug') {
           error_reporting(E_ALL);
           ini_set('display_errors', true);
